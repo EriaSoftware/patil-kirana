@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>पाटील Kirana - Your Daily Needs, Delivered Fast</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Poppins, Lato, and Mukta (for Marathi) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700&family=Mukta:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom Styles & Animations -->
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #333333;
+            scroll-behavior: smooth;
+        }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .font-marathi { font-family: 'Mukta', sans-serif; }
+        
+        .bg-primary { background-color: #6A1B9A; }
+        .text-primary { color: #6A1B9A; }
+        .border-primary { border-color: #6A1B9A; }
+        .ring-primary { --tw-ring-color: #6A1B9A; }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .page-section { display: none; }
+        .page-section.active { display: block; animation: fadeIn 0.6s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+        .btn { transition: all 0.3s ease; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .btn:active { transform: scale(0.98); }
+
+        .product-card { transition: transform 0.3s ease, box-shadow 0.3s ease; animation: zoomIn 0.5s ease-in-out; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        .product-card img { object-fit: contain; background-color: #ffffff; mix-blend-mode: multiply; }
+
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #6A1B9A;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Pre-loader -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#home" id="logo" class="nav-link text-3xl font-bold text-primary">
+                    <span class="font-marathi">पाटील</span> <span class="font-poppins">Kirana</span>
+                </a>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="nav-link text-gray-600 hover:text-primary transition font-semibold">Home</a>
+                    <a href="#products" class="nav-link text-gray-600 hover:text-primary transition font-semibold">Shop</a>
+                    <a href="#home" class="nav-link text-gray-600 hover:text-primary transition font-semibold">Offers</a>
+                    <a href="#footer" class="nav-link text-gray-600 hover:text-primary transition font-semibold">Contact</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden sm:block relative">
+                        <input type="search" id="search-input" placeholder="Search for products..." class="w-40 lg:w-64 pl-4 pr-10 py-2 border rounded-full focus:outline-none focus:ring-2 ring-primary transition">
+                        <i class="fas fa-search absolute top-1/2 right-3 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <a href="#account" class="nav-link text-gray-600 hover:text-primary transition"><i class="fas fa-user text-xl"></i></a>
+                    <a href="#cart" id="cart-icon-link" class="nav-link text-gray-600 hover:text-primary transition relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-item-count" class="absolute -top-2 -right-2 bg-primary text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transition-transform">0</span>
+                    </a>
+                    <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-primary focus:outline-none"><i class="fas fa-bars text-xl"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <nav class="flex flex-col p-4 space-y-3">
+                <a href="#home" class="nav-link text-gray-600 hover:text-primary transition">Home</a>
+                <a href="#products" class="nav-link text-gray-600 hover:text-primary transition">Shop</a>
+                <a href="#home" class="nav-link text-gray-600 hover:text-primary transition">Offers</a>
+                <a href="#footer" class="nav-link text-gray-600 hover:text-primary transition">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Home Page Section -->
+        <section id="home" class="page-section">
+            <div class="bg-white rounded-lg overflow-hidden flex flex-col md:flex-row items-center mb-12 shadow-lg animate-on-scroll">
+                <div class="w-full md:w-1/2 p-8 lg:p-12 text-center md:text-left">
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">Your Daily Needs, Delivered Fast</h1>
+                    <p class="text-gray-600 mb-8 text-lg">Fresh groceries and household essentials delivered right to your doorstep with a smile.</p>
+                    <a href="#products" class="nav-link bg-primary text-white font-bold py-3 px-8 rounded-full hover:opacity-90 transition-all text-lg btn">Shop Now</a>
+                </div>
+                <div class="w-full md:w-1/2 h-64 md:h-auto">
+                    <img src="https://images.unsplash.com/photo-1588964895597-cf29151f7190?q=80&w=2070&auto=format&fit=crop" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/1035x400/e9d5ff/6A1B9A?text=Groceries';" 
+                         alt="Fresh Groceries Aisle" class="w-full h-full" style="object-fit: cover;">
+                </div>
+            </div>
+            <h2 class="text-3xl font-bold mb-8 text-center animate-on-scroll">Popular Categories</h2>
+            <div id="home-categories" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 mb-12">
+                <!-- Category cards here -->
+            </div>
+            <h2 class="text-3xl font-bold mb-8 animate-on-scroll">Special Offers</h2>
+            <div id="home-offers" class="flex space-x-6 overflow-x-auto pb-6 no-scrollbar">
+                <!-- Offer cards here -->
+            </div>
+            <div class="mt-16 bg-white rounded-lg p-8 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center shadow-lg animate-on-scroll">
+                 <div class="animate-on-scroll">
+                    <i class="fas fa-shipping-fast text-primary text-4xl mb-3"></i>
+                    <h3 class="font-bold text-xl">Fast Local Delivery</h3>
+                    <p class="text-gray-600">Get your order within hours, not days.</p>
+                </div>
+                <div class="animate-on-scroll" style="transition-delay: 150ms;">
+                    <i class="fas fa-leaf text-primary text-4xl mb-3"></i>
+                    <h3 class="font-bold text-xl">Fresh & Quality Products</h3>
+                    <p class="text-gray-600">Handpicked items for the best quality.</p>
+                </div>
+                <div class="animate-on-scroll" style="transition-delay: 300ms;">
+                    <i class="fas fa-shield-alt text-primary text-4xl mb-3"></i>
+                    <h3 class="font-bold text-xl">Secure Payments</h3>
+                    <p class="text-gray-600">Your transactions are safe and secure.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="products" class="page-section">
+             <h1 class="text-3xl font-bold mb-8">All Products</h1>
+             <div class="flex flex-col md:flex-row gap-8">
+                <aside class="w-full md:w-1/4 lg:w-1/5 animate-on-scroll">
+                    <div class="bg-white p-6 rounded-lg shadow-md sticky top-28">
+                        <h2 class="font-bold text-xl mb-4">Filters</h2>
+                        <div id="filters-container" class="space-y-6">
+                           <!-- Dynamic Filters will be loaded here -->
+                        </div>
+                    </div>
+                </aside>
+                <div class="w-full md:w-3/4 lg:w-4/5">
+                    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+                        <!-- Product cards will be populated here -->
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- Cart and Account sections are the same -->
+        <section id="cart" class="page-section">
+            <h1 class="text-3xl font-bold mb-8">Your Shopping Cart</h1>
+            <div id="cart-content" class="flex flex-col lg:flex-row gap-8">
+                <div id="cart-items-container" class="w-full lg:w-2/3 space-y-4">
+                    <div id="empty-cart-message" class="bg-white p-8 rounded-lg text-center shadow-md">
+                        <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
+                        <h2 class="text-2xl font-semibold">Your cart is empty</h2>
+                        <p class="text-gray-500">Looks like you haven't added anything yet.</p>
+                        <a href="#products" class="nav-link mt-6 inline-block bg-primary text-white font-bold py-3 px-8 rounded-full btn">Start Shopping</a>
+                    </div>
+                </div>
+                <div id="order-summary-container" class="w-full lg:w-1/3 hidden">
+                    <div class="bg-white border rounded-lg p-6 sticky top-28 shadow-md">
+                        <h2 class="text-xl font-bold mb-4">Order Summary</h2>
+                        <div class="space-y-3 mb-4"><div class="flex justify-between"><span>Subtotal</span><span id="cart-subtotal">₹0.00</span></div><div class="flex justify-between"><span>Delivery Fee</span><span id="cart-delivery-fee">₹0.00</span></div><div class="border-t pt-3 flex justify-between font-bold text-lg"><span>Total</span><span id="cart-total">₹0.00</span></div></div>
+                        <button class="w-full bg-primary text-white font-bold py-3 rounded-lg btn disabled:opacity-50 disabled:cursor-not-allowed" id="checkout-btn" disabled>Proceed to Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="account" class="page-section">
+            <h1 class="text-3xl font-bold mb-8">My Account</h1>
+            <div class="flex flex-col md:flex-row gap-8">
+                <aside class="w-full md:w-1/4 lg:w-1/5 animate-on-scroll"><div class="bg-white p-4 rounded-lg shadow-md"><div class="space-y-2"><a href="#" class="block font-semibold p-3 rounded-lg bg-purple-100 text-primary">Order History</a><a href="#" class="block font-semibold p-3 rounded-lg hover:bg-gray-100">Manage Addresses</a><a href="#" class="block font-semibold p-3 rounded-lg hover:bg-gray-100">Profile Settings</a><a href="#" class="block font-semibold p-3 rounded-lg hover:bg-gray-100">Logout</a></div></div></aside>
+                <div class="w-full md:w-3/4 lg:w-4/5 animate-on-scroll" style="transition-delay: 150ms;">
+                    <h2 class="text-xl font-bold mb-4">Order History</h2>
+                    <div class="space-y-4">
+                        <div class="bg-white border rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm"><div class="flex-grow"><p class="font-bold">Order #PK-1025</p><p class="text-sm text-gray-500">Date: July 25, 2025</p></div><div class="my-2 sm:my-0"><span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded">Delivered</span></div><div class="my-2 sm:my-0"><p class="font-semibold">Total: ₹540.00</p></div><div><a href="#" class="text-primary font-semibold hover:underline">View Details</a></div></div>
+                        <div class="bg-white border rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm"><div class="flex-grow"><p class="font-bold">Order #PK-1024</p><p class="text-sm text-gray-500">Date: July 20, 2025</p></div><div class="my-2 sm:my-0"><span class="bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded">Processing</span></div><div class="my-2 sm:my-0"><p class="font-semibold">Total: ₹250.00</p></div><div><a href="#" class="text-primary font-semibold hover:underline">Track Order</a></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div id="toast-notification" class="fixed bottom-5 right-5 bg-gray-800 text-white py-3 px-6 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-500 z-50"><i class="fas fa-check-circle text-green-400 mr-2"></i><span id="toast-message"></span></div>
+    </main>
+
+    <footer id="footer" class="bg-gray-800 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-poppins font-bold mb-4"><span class="font-marathi">पाटील</span> Kirana</h3>
+                    <p class="text-gray-400">Your trusted neighborhood store, now online. Quality products, fast delivery.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">About Us</a></li>
+                        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-2"></i>Pune, Maharashtra, India</li>
+                        <li class="flex items-center"><i class="fas fa-phone-alt mr-2"></i> +91 12345 67890</li>
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> support@patilkirana.com</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">We Accept</h3>
+                    <div class="flex items-center space-x-2 text-gray-300">
+                        <i class="fab fa-cc-visa text-3xl"></i>
+                        <i class="fab fa-cc-mastercard text-3xl"></i>
+                        <i class="fab fa-cc-amex text-3xl"></i>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/2560px-UPI-Logo-vector.svg.png" class="h-6 bg-white p-1 rounded" alt="UPI"/>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500">
+                <p>&copy; 2025 पाटील Kirana. All Rights Reserved. Designed for portfolio purposes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loader = document.getElementById('loader');
+        
+        // --- DATA ---
+        const products = [
+            { id: 1, name: 'Aashirvaad Atta', category: 'Grains', price: 250, size: '5 kg', imageUrl: 'https://rukminim2.flixcart.com/image/850/1000/xif0q/flour/z/x/s/-original-imagq59bnsg57x8z.jpeg', offer: 15 },
+            { id: 2, name: 'Fortune Sunlite Oil', category: 'Oils', price: 150, size: '1 Litre', imageUrl: 'https://www.jiomart.com/images/product/original/490000447/fortune-sun-lite-sunflower-oil-1-l-pouch-product-images-o490000447-p490000447-0-202203150125.jpg', bestseller: true },
+            { id: 3, name: 'Maggi Noodles', category: 'Snacks', price: 55, size: 'Pack of 4', imageUrl: 'https://m.media-amazon.com/images/I/81tiRzUB1iL.jpg' },
+            { id: 4, name: 'Amul Butter', category: 'Dairy', price: 265, size: '500g', imageUrl: 'https://www.jiomart.com/images/product/original/490000871/amul-pasteurised-butter-500-g-carton-product-images-o490000871-p490000871-0-202305231922.jpg' },
+            { id: 5, name: 'Everest Chilli Powder', category: 'Spices', price: 75, size: '200g', imageUrl: 'https://5.imimg.com/data5/ANDROID/Default/2021/1/GN/UQ/ZX/11279288/product-jpeg-500x500.jpg' },
+            { id: 6, name: 'Everest Turmeric Powder', category: 'Spices', price: 60, size: '200g', imageUrl: 'https://m.media-amazon.com/images/I/810s53kK8tL.jpg' },
+            { id: 7, name: 'Tata Salt', category: 'Spices', price: 25, size: '1 kg', imageUrl: 'https://www.jiomart.com/images/product/original/490000115/tata-salt-iodised-1-kg-product-images-o490000115-p490000115-0-202303071302.jpg', offer: 10 },
+            { id: 8, name: 'Daawat Basmati Rice', category: 'Grains', price: 180, size: '1 kg', imageUrl: 'https://d2j6dbq0eux0l1.cloudfront.net/images/23372133/1279264585.jpg' },
+            { id: 9, name: 'Britannia Milk Bread', category: 'Dairy', price: 45, size: '400g', imageUrl: 'https://www.bigbasket.com/media/uploads/p/l/40019293_10-britannia-100-whole-wheat-bread.jpg' },
+            { id: 10, name: 'Surf Excel Matic Liquid', category: 'Cleaning', price: 220, size: '1 Litre', imageUrl: 'https://www.jiomart.com/images/product/original/491350849/surf-excel-matic-top-load-liquid-detergent-1-l-product-images-o491350849-p491350849-0-202203170914.jpg' },
+            { id: 11, name: 'Lays Classic Chips', category: 'Snacks', price: 20, size: '52g', imageUrl: 'https://www.lays.com/sites/lays.com/files/2019-09/classic-family-size.png' },
+            { id: 12, name: 'Coca-Cola', category: 'Beverages', price: 40, size: '750ml', imageUrl: 'https://www.coca-colacompany.com/content/dam/company/us/en/brands/coca-cola/coca-cola-original-225x225.png' },
+            { id: 13, name: 'Tata Tea Gold', category: 'Beverages', price: 550, size: '1 kg', imageUrl: 'https://www.tataconsumer.com/sites/g/files/jdrbvy341/files/2023-09/tata-tea-gold-pouch-500g-and-1kg_0.png' },
+            { id: 14, name: 'Harpic Toilet Cleaner', category: 'Cleaning', price: 95, size: '500ml', imageUrl: 'https://images-cdn.ubuy.co.in/634d257256133d36b847a972-harpic-power-plus-toilet-cleaner-original.jpg' },
+            { id: 15, name: 'Amul Gold Milk', category: 'Dairy', price: 30, size: '500ml', imageUrl: 'https://cdn.dmart.in/images/rwd/products/I/A/M/IAMUL213xx250722_5_B.jpg' }
+        ];
+
+        const cartItems = [];
+        
+        // --- DOM ELEMENTS ---
+        const pageSections = document.querySelectorAll('.page-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const searchInput = document.getElementById('search-input');
+        const productGrid = document.getElementById('product-grid');
+        const filtersContainer = document.getElementById('filters-container');
+        const homeCategoriesContainer = document.getElementById('home-categories');
+        const homeOffersContainer = document.getElementById('home-offers');
+        const cartItemCountEl = document.getElementById('cart-item-count');
+        const toast = document.getElementById('toast-notification');
+        const toastMessage = document.getElementById('toast-message');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const orderSummaryContainer = document.getElementById('order-summary-container');
+        const cartSubtotalEl = document.getElementById('cart-subtotal');
+        const cartDeliveryFeeEl = document.getElementById('cart-delivery-fee');
+        const cartTotalEl = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        // --- RENDER FUNCTIONS ---
+        function createProductCard(product, isOfferCard = false) {
+            const originalPrice = product.offer ? `₹${(product.price / (1 - product.offer / 100)).toFixed(0)}` : '';
+            const cardClass = isOfferCard ? 'flex-shrink-0 w-72' : '';
+            return `
+            <div class="${cardClass} group product-card bg-white border rounded-lg overflow-hidden flex flex-col animate-on-scroll" data-id="${product.id}">
+                <div class="relative">
+                    <img src="${product.imageUrl}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e9d5ff/6A1B9A?text=${product.name.split(' ').join('+')}';" alt="${product.name}" class="w-full h-48">
+                    ${product.offer ? `<div class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">${product.offer}% OFF</div>` : ''}
+                    ${product.bestseller ? `<div class="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">BESTSELLER</div>` : ''}
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="font-semibold text-lg">${product.name}</h3>
+                    <p class="text-gray-500 text-sm">${product.size}</p>
+                    <div class="flex-grow"></div>
+                    <div class="flex items-center justify-between mt-4">
+                        <p class="font-bold text-primary text-xl">₹${product.price} ${product.offer ? `<span class="text-sm font-normal text-gray-500 line-through">${originalPrice}</span>` : ''}</p>
+                        <button class="add-to-cart-btn bg-primary text-white px-4 py-2 rounded-lg btn">Add</button>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function renderProducts(productsToRender) {
+            productGrid.innerHTML = '';
+            if (productsToRender.length === 0) {
+                productGrid.innerHTML = `<p class="col-span-full text-center text-gray-500">No products found.</p>`;
+                return;
+            }
+            productsToRender.forEach(product => {
+                productGrid.innerHTML += createProductCard(product);
+            });
+            attachAddToCartListeners();
+        }
+        
+        function renderFilters() {
+            const categories = ['All', ...new Set(products.map(p => p.category))];
+            let categoryHTML = '<div><h3 class="font-semibold mb-2">Category</h3><div class="space-y-1">';
+            categories.forEach(cat => {
+                categoryHTML += `<a href="#" class="category-filter block text-gray-600 hover:text-primary transition" data-category="${cat}">${cat}</a>`;
+            });
+            categoryHTML += '</div></div>';
+            filtersContainer.innerHTML = categoryHTML;
+
+            document.querySelectorAll('.category-filter').forEach(link => {
+                link.addEventListener('click', handleFilterClick);
+            });
+        }
+
+        function renderHomePageContent() {
+            // Render Categories
+            const categories = [...new Set(products.map(p => p.category))].slice(0, 6);
+            const categoryIcons = {
+                Grains: 'https://images.unsplash.com/photo-1509895836463-c596b1b518de?q=80&w=300&auto=format=fit=crop',
+                Spices: 'https://images.unsplash.com/photo-1599528858535-a1b2b73a3b64?q=80&w=300&auto=format=fit=crop',
+                Snacks: 'https://images.unsplash.com/photo-1582287698642-eac9b4a45729?q=80&w=300&auto=format=fit=crop',
+                Dairy: 'https://images.unsplash.com/photo-1628088240391-204a923f9113?q=80&w=300&auto=format=fit=crop',
+                Cleaning: 'https://images.unsplash.com/photo-1584483751368-04f7a29679b3?q=80&w=300&auto=format=fit=crop',
+                Oils: 'https://images.unsplash.com/photo-1526242634352-254428b45f44?q=80&w=300&auto=format=fit=crop',
+                Beverages: 'https://images.unsplash.com/photo-1543253687-c931c8e01820?q=80&w=300&auto=format=fit=crop'
+            };
+            homeCategoriesContainer.innerHTML = categories.map((cat, i) => `
+                <div class="animate-on-scroll" style="transition-delay: ${i * 100}ms;">
+                    <a href="#products" class="category-home-link group text-center block bg-white border rounded-lg p-4 product-card" data-category="${cat}">
+                        <img src="${categoryIcons[cat] || 'https://placehold.co/150x150/9333ea/ffffff?text=Category'}" alt="${cat}" class="mx-auto h-24 w-24 rounded-full mb-3 shadow-md" style="object-fit: cover;">
+                        <span class="font-semibold text-lg">${cat}</span>
+                    </a>
+                </div>`).join('');
+
+            // Render Offers
+            const offerProducts = products.filter(p => p.offer || p.bestseller).slice(0, 4);
+            homeOffersContainer.innerHTML = offerProducts.map(p => createProductCard(p, true)).join('');
+
+            attachAddToCartListeners();
+            document.querySelectorAll('.category-home-link').forEach(link => {
+                link.addEventListener('click', e => {
+                    const category = e.currentTarget.dataset.category;
+                    // Go to products page and filter
+                    showPage('products');
+                    document.querySelectorAll('.category-filter').forEach(f => f.classList.remove('text-primary', 'font-bold'));
+                    document.querySelector(`.category-filter[data-category="${category}"]`).classList.add('text-primary', 'font-bold');
+                    handleFilter();
+                });
+            });
+        }
+        
+        // --- EVENT HANDLERS & LOGIC ---
+        function attachAddToCartListeners() {
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', handleAddToCart);
+            });
+        }
+        
+        function handleFilter() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeCategory = document.querySelector('.category-filter.text-primary')?.dataset.category || 'All';
+
+            let filteredProducts = products.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(searchTerm);
+                const matchesCategory = (activeCategory === 'All' || p.category === activeCategory);
+                return matchesSearch && matchesCategory;
+            });
+            renderProducts(filteredProducts);
+        }
+
+        function handleFilterClick(e) {
+            e.preventDefault();
+            document.querySelectorAll('.category-filter').forEach(link => link.classList.remove('text-primary', 'font-bold'));
+            e.target.classList.add('text-primary', 'font-bold');
+            handleFilter();
+        }
+
+        function handleAddToCart(e) {
+            const card = e.target.closest('.product-card');
+            const productId = parseInt(card.dataset.id);
+            const product = products.find(p => p.id === productId);
+
+            const existingItem = cartItems.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity++;
+                showToast(`${product.name} quantity updated!`);
+            } else {
+                cartItems.push({ ...product, quantity: 1 });
+                showToast(`${product.name} added to cart!`);
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+            cartItemCountEl.textContent = count;
+            cartItemCountEl.classList.add('transform', 'scale-125', 'bg-red-500');
+            setTimeout(() => cartItemCountEl.classList.remove('transform', 'scale-125', 'bg-red-500'), 300);
+            
+            updateCartView();
+        }
+
+        function updateCartView() {
+            if (!document.getElementById('cart').classList.contains('active')) return;
+
+            cartItemsContainer.innerHTML = '';
+            if (cartItems.length === 0) {
+                cartItemsContainer.innerHTML = `<div id="empty-cart-message" class="bg-white p-8 rounded-lg text-center shadow-md">
+                        <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
+                        <h2 class="text-2xl font-semibold">Your cart is empty</h2>
+                        <p class="text-gray-500">Looks like you haven't added anything yet.</p>
+                        <a href="#products" class="nav-link mt-6 inline-block bg-primary text-white font-bold py-3 px-8 rounded-full btn">Start Shopping</a>
+                    </div>`;
+                orderSummaryContainer.classList.add('hidden');
+                checkoutBtn.disabled = true;
+            } else {
+                orderSummaryContainer.classList.remove('hidden');
+                checkoutBtn.disabled = false;
+                let subtotal = 0;
+                cartItems.forEach((item, index) => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'bg-white border rounded-lg p-4 flex items-center gap-4 animate-on-scroll visible';
+                    itemEl.innerHTML = `<img src="${item.imageUrl}" alt="${item.name}" class="w-20 h-20 object-contain rounded bg-white"><div class="flex-grow"><p class="font-bold">${item.name}</p><p class="text-sm text-gray-500">${item.size}</p></div><div class="flex items-center border rounded"><button class="quantity-change px-3 py-1 text-lg" data-index="${index}" data-change="-1">-</button><span class="px-4 py-1 font-semibold">${item.quantity}</span><button class="quantity-change px-3 py-1 text-lg" data-index="${index}" data-change="1">+</button></div><p class="font-semibold w-24 text-right">₹${(item.price * item.quantity).toFixed(2)}</p><button class="remove-item text-gray-400 hover:text-red-500 transition" data-index="${index}"><i class="fas fa-trash text-lg"></i></button>`;
+                    cartItemsContainer.appendChild(itemEl);
+                    subtotal += item.price * item.quantity;
+                });
+                const deliveryFee = subtotal > 0 ? 20 : 0;
+                cartSubtotalEl.textContent = `₹${subtotal.toFixed(2)}`;
+                cartDeliveryFeeEl.textContent = `₹${deliveryFee.toFixed(2)}`;
+                cartTotalEl.textContent = `₹${(subtotal + deliveryFee).toFixed(2)}`;
+            }
+        }
+
+        cartItemsContainer.addEventListener('click', e => {
+            const target = e.target.closest('button');
+            if (!target) return;
+            const index = parseInt(target.dataset.index);
+            if (target.classList.contains('quantity-change')) {
+                const change = parseInt(target.dataset.change);
+                cartItems[index].quantity += change;
+                if (cartItems[index].quantity === 0) {
+                    cartItems.splice(index, 1);
+                }
+            } else if (target.classList.contains('remove-item')) {
+                cartItems.splice(index, 1);
+            }
+            updateCart();
+        });
+
+        function showPage(pageId) {
+            pageSections.forEach(section => section.classList.remove('active'));
+            const activePage = document.getElementById(pageId);
+            if(activePage) activePage.classList.add('active');
+            window.scrollTo(0, 0);
+            
+            if (pageId === 'cart') {
+                updateCartView();
+            }
+            observeSections();
+        }
+
+        function observeSections() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.animate-on-scroll').forEach(section => observer.observe(section));
+        }
+
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+
+        // --- INITIALIZATION ---
+        function init() {
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const pageId = href.substring(1);
+                        if (document.getElementById(pageId)) {
+                            history.pushState(null, '', `#${pageId}`);
+                            showPage(pageId);
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+            window.addEventListener('popstate', () => showPage(window.location.hash.substring(1) || 'home'));
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            document.getElementById('cart-icon-link').addEventListener('click', () => showPage('cart'));
+            
+            showPage(window.location.hash.substring(1) || 'home');
+            renderProducts(products);
+            renderFilters();
+            renderHomePageContent();
+            document.querySelector('.category-filter[data-category="All"]').classList.add('text-primary', 'font-bold');
+            
+            searchInput.addEventListener('keyup', handleFilter);
+
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+                observeSections();
+            }, 500);
+        }
+
+        init();
+    });
+    </script>
+</body>
+</html>

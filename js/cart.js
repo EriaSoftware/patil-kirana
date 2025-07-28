@@ -1,3 +1,6 @@
+// Copyright (c) 2025 Eria Software solutions and services private limited.
+// See LICENSE.md for license details.
+
 // Shopping Cart Functionality for Patil Kirana
 
 class ShoppingCart {

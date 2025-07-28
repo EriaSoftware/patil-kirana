@@ -1,0 +1,170 @@
+[
+ 
+  
+  {
+    "id": "veg003",
+    "name": "Potatoes",
+    "category": "vegetables",
+    "price": 30,
+    "unit": "kg",
+    "image": "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&h=300&fit=crop",
+    "description": "High-quality potatoes for all your cooking needs",
+    "features": ["Grade A quality", "Long lasting", "Versatile"]
+  },
+  {
+    "id": "veg004",
+    "name": "Fresh Spinach",
+    "category": "vegetables",
+    "price": 20,
+    "unit": "bunch",
+    "image": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=400&h=300&fit=crop",
+    "description": "Fresh green spinach leaves rich in iron",
+    "features": ["Iron rich", "Fresh daily", "Organic"]
+  },
+  {
+    "id": "veg005",
+    "name": "Carrots",
+    "category": "vegetables",
+    "price": 45,
+    "unit": "kg",
+    "image": "https://images.unsplash.com/photo-1445282768818-728615cc910a?w=400&h=300&fit=crop",
+    "description": "Sweet and crunchy carrots rich in beta-carotene",
+    "features": ["Beta-carotene rich", "Sweet variety", "Fresh"]
+  },
+  {
+    "id": "fruit001",
+    "name": "Fresh Bananas",
+    "category": "fruits",
+    "price": 60,
+    "unit": "dozen",
+    "image": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&h=300&fit=crop",
+    "description": "Ripe yellow bananas perfect for snacking",
+    "features": ["Potassium rich", "Energy booster", "Natural sweetness"]
+  },
+  {
+    "id": "fruit002",
+    "name": "Green Apples",
+    "category": "fruits",
+    "price": 180,
+    "originalPrice": 200,
+    "discount": 10,
+    "unit": "kg",
+    "image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400&h=300&fit=crop",
+    "description": "Crisp and juicy green apples",
+    "features": ["Imported quality", "Crisp texture", "Vitamin C rich"]
+  },
+  {
+    "id": "fruit003",
+    "name": "Fresh Oranges",
+    "category": "fruits",
+    "price": 80,
+    "unit": "kg",
+    "image": "https://images.unsplash.com/photo-1547514701-42782101795e?w=400&h=300&fit=crop",
+    "description": "Juicy oranges packed with vitamin C",
+    "features": ["Vitamin C rich", "Juicy", "Natural immunity booster"]
+  },
+  {
+    "id": "dairy001",
+    "name": "Fresh Milk",
+    "category": "dairy",
+    "price": 60,
+    "unit": "liter",
+    "image": "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&h=300&fit=crop",
+    "description": "Fresh cow milk delivered daily",
+    "features": ["Daily fresh", "Full cream", "Pasteurized"]
+  },
+  {
+    "id": "dairy002",
+    "name": "Paneer",
+    "category": "dairy",
+    "price": 320,
+    "unit": "500g",
+    "image": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&h=300&fit=crop",
+    "description": "Fresh homemade paneer",
+    "features": ["Homemade", "Protein rich", "Fresh daily"]
+  },
+  {
+    "id": "dairy003",
+    "name": "Curd (Dahi)",
+    "category": "dairy",
+    "price": 50,
+    "unit": "500g",
+    "image": "https://images.unsplash.com/photo-1571212515416-fef01fc43637?w=400&h=300&fit=crop",
+    "description": "Fresh homemade curd",
+    "features": ["Probiotic rich", "Homemade", "Creamy texture"]
+  },
+  {
+    "id": "dairy004",
+    "name": "Butter",
+    "category": "dairy",
+    "price": 120,
+    "unit": "200g",
+    "image": "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=400&h=300&fit=crop",
+    "description": "Fresh white butter",
+    "features": ["Unsalted", "Fresh", "Creamy"]
+  },
+  {
+    "id": "grocery001",
+    "name": "Basmati Rice",
+    "category": "groceries",
+    "price": 150,
+    "originalPrice": 170,
+    "discount": 12,
+    "unit": "kg",
+    "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+    "description": "Premium quality basmati rice",
+    "features": ["Long grain", "Aromatic", "Premium quality"]
+  },
+  {
+    "id": "grocery002",
+    "name": "Toor Dal",
+    "category": "groceries",
+    "price": 120,
+    "unit": "kg",
+    "image": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&h=300&fit=crop",
+    "description": "High-quality toor dal (pigeon peas)",
+    "features": ["Protein rich", "Premium grade", "Easy to cook"]
+  },
+  {
+    "id": "grocery003",
+    "name": "Wheat Flour",
+    "category": "groceries",
+    "price": 45,
+    "unit": "kg",
+    "image": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop",
+    "description": "Fresh ground wheat flour for rotis",
+    "features": ["Freshly ground", "Fine texture", "Nutritious"]
+  },
+  
+  {
+    "id": "spice001",
+    "name": "Turmeric Powder",
+    "category": "spices",
+    "price": 80,
+    "unit": "250g",
+    "image": "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=400&h=300&fit=crop",
+    "description": "Pure turmeric powder with natural color",
+    "features": ["Pure", "Natural color", "Aromatic"]
+  },
+  
+  {
+    "id": "spice003",
+    "name": "Garam Masala",
+    "category": "spices",
+    "price": 150,
+    "unit": "100g",
+    "image": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&h=300&fit=crop",
+    "description": "Homemade garam masala blend",
+    "features": ["Homemade", "Aromatic blend", "Fresh ground"]
+  },
+  {
+    "id": "spice004",
+    "name": "Cumin Seeds",
+    "category": "spices",
+    "price": 200,
+    "unit": "250g",
+    "image": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&h=300&fit=crop",
+    "description": "Premium quality cumin seeds",
+    "features": ["Premium quality", "Aromatic", "Fresh"]
+  }
+]

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Patil Kirana</title>
+    <meta name="description" content="Complete your order at Patil Kirana. Fast and secure checkout process.">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">
+                <i class="fas fa-store me-2"></i>Patil Kirana
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="display-5 fw-bold text-center">Checkout</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="products.html">Products</a></li>
+                            <li class="breadcrumb-item active">Checkout</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Form -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Customer Details Form -->
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="fas fa-user me-2"></i>Customer Details</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="checkout-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="firstName" class="form-label">First Name *</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastName" class="form-label">Last Name *</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email *</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="phone" class="form-label">Phone Number *</label>
+                                        <input type="tel" class="form-control" id="phone" required>
+                                    </div>
+                                </div>
+
+                                <h5 class="mt-4 mb-3"><i class="fas fa-map-marker-alt me-2"></i>Delivery Address</h5>
+                                
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Street Address *</label>
+                                    <textarea class="form-control" id="address" rows="2" required></textarea>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="area" class="form-label">Area/Locality *</label>
+                                        <input type="text" class="form-control" id="area" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pincode" class="form-label">Pincode *</label>
+                                        <input type="text" class="form-control" id="pincode" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="landmark" class="form-label">Landmark (Optional)</label>
+                                    <input type="text" class="form-control" id="landmark">
+                                </div>
+
+                                <h5 class="mt-4 mb-3"><i class="fas fa-clock me-2"></i>Delivery Preference</h5>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="deliveryDate" class="form-label">Preferred Date *</label>
+                                        <input type="date" class="form-control" id="deliveryDate" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="deliveryTime" class="form-label">Preferred Time *</label>
+                                        <select class="form-select" id="deliveryTime" required>
+                                            <option value="">Select Time Slot</option>
+                                            <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
+                                            <option value="afternoon">Afternoon (12:00 PM - 4:00 PM)</option>
+                                            <option value="evening">Evening (4:00 PM - 8:00 PM)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="notes" class="form-label">Special Instructions (Optional)</label>
+                                    <textarea class="form-control" id="notes" rows="2" placeholder="Any special delivery instructions..."></textarea>
+                                </div>
+
+                                <h5 class="mt-4 mb-3"><i class="fas fa-credit-card me-2"></i>Payment Method</h5>
+                                
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod" checked>
+                                        <label class="form-check-label" for="cod">
+                                            <i class="fas fa-money-bill-wave me-2"></i>Cash on Delivery
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="upi" value="upi">
+                                        <label class="form-check-label" for="upi">
+                                            <i class="fab fa-google-pay me-2"></i>UPI Payment
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="col-lg-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Order Summary</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="order-items">
+                                <!-- Order items will be populated by JavaScript -->
+                            </div>
+                            
+                            <hr>
+                            
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span>₹<span id="subtotal">0</span></span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Delivery Charges:</span>
+                                <span id="delivery-charges">₹<span id="delivery-amount">0</span></span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold h5">
+                                <span>Total:</span>
+                                <span class="text-primary">₹<span id="total-amount">0</span></span>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <small><i class="fas fa-info-circle me-1"></i>Free delivery for orders above ₹500</small>
+                            </div>
+                            
+                            <button type="button" class="btn btn-primary btn-lg w-100 mt-3" onclick="placeOrder()">
+                                <i class="fas fa-check me-2"></i>Place Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-store me-2"></i>Patil Kirana</h5>
+                    <p class="mb-0">Your trusted neighborhood grocery store in Pune.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">&copy; 2024 Patil Kirana. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/checkout.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
